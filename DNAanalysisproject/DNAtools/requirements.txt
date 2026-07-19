@@ -1,6 +1,0 @@
-# Core ORF-finding + codon usage analysis: no dependencies beyond the
-# Python standard library.
-
-# Required only for the ESM-2 perplexity scoring step:
-torch>=2.0
-transformers>=4.30
