@@ -1,6 +1,6 @@
 # DNA ORF Analysis Toolkit
 
-A set of standalone Python scripts for finding open reading frames (ORFs) in DNA, scoring them against real biological references (E. coli codon usage, ESM-2 protein language model), and comparing real plasmid DNA against synthetic/random DNA. Built up incrementally to answer one core question: **can a handful of cheap, well-understood metrics tell real biological DNA apart from DNA that only looks like DNA?**
+A set of standalone Python scripts for finding open reading frames (ORFs) in DNA, scoring them against real biological references (E. coli codon usage, ESM-2 protein language model), and comparing real plasmid DNA against synthetic/random DNA. 
 
 No script requires any other script to run standalone, except where noted (`orf_analyzer.py` is a shared dependency for several tools, and `dna_binary_converter.py` is a dependency of the Wikipedia-to-DNA scripts).
 
@@ -88,7 +88,7 @@ python batch_orf_pipeline_no_esm2.py --fasta-dir my_fasta_folder --out-dir batch
 
 Same output structure as `batch_orf_pipeline.py` (`batch_summary_report.md`, `per_file_summary.csv`, `all_orfs.csv`, `--progress-every` works the same way), with extra columns for start codon, non-standard-start flag, entropy, and repeat fraction/count. No `torch`/`transformers` needed at all, so this one runs almost instantly even on a laptop CPU.
 
-**Caveat on Shannon entropy:** as implemented, it's an order-0 measure of base composition only. It's blind to sequence order, so a repetitive sequence like `AAAACCCCGGGGTTTT` scores a perfect 2.0 (even base counts) despite being obviously structured. It answers "is the base composition balanced?", not "does this look random?" The k-mer repeat fraction is the metric that actually captures repetitiveness.
+**Caveat on Shannon entropy:** as implemented, it's an order-0 measure of base composition only. It's blind to sequence order, so a repetitive sequence like `AAAACCCCGGGGTTTT` scores a perfect 2.0 (even base counts) despite being obviously structured. It answers "is the base composition balanced?", not "does this look random?" The k-mer repeat fraction is the metric that captures repetitiveness.
 
 ### `addgene_to_fasta.py`
 Converts Addgene plasmid records into individual FASTA files, either from a local bulk JSON download or by calling Addgene's Developers Portal API directly (requires an approved API token).
@@ -185,6 +185,6 @@ cat addgene_results/batch_summary_report.md
 cat wiki_results/batch_summary_report.md
 ```
 
-From there, `all_orfs.csv` and `per_file_summary.csv` in each output folder can be loaded directly (pandas, R, Excel, whatever you prefer) for further comparison, plotting, or statistical testing between the two datasets.
+From there, `all_orfs.csv` and `per_file_summary.csv` in each output folder can be loaded directly for further comparison, plotting, or statistical testing between the two datasets.
 
 
